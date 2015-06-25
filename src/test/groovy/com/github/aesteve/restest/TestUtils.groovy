@@ -46,8 +46,8 @@ class TestUtils {
 
 	static Closure closeAll = { Vertx vertx, TestContext context ->
 		println "Close all"
-		Async async = context.async()
 		if (vertx) {
+			Async async = context.async()
 			vertx.close({
 				if (it.failed()) {
 					context.fail()
@@ -55,8 +55,6 @@ class TestUtils {
 					async.complete()
 				}
 			})
-		} else {
-			async.complete()
 		}
 	}
 }
