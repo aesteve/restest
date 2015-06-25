@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // vertx
+    compile 'io.vertx:vertx-core:3.0.0'
+    compile 'io.vertx:vertx-unit:3.0.0'
+    compile 'io.vertx:vertx-lang-groovy:3.0.0'
+    
+    // tests
+    testCompile 'io.vertx:vertx-web:3.0.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
