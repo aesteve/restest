@@ -5,14 +5,5 @@ import io.vertx.groovy.core.Vertx
 
 String basePackage = "src/test/groovy/com/github/aesteve/restest/specs"
 
-Vertx vertx = Vertx.vertx()
-SpecBuilder builder = new SpecBuilder(vertx:vertx)
-TestSuite suite = builder.buildSpec(new File("${basePackage}/JsonApiSpec.groovy"))
-suite.run().handler({
-	println "Completion handler"
-	if (it.failed()) {
-		println it.cause()
-	} else {
-		println "Completed"
-	}
-})
+SpecBuilder builder = new SpecBuilder()
+builder.buildSpec(new File("${basePackage}/JsonApiSpec.groovy")).start()

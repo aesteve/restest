@@ -1,9 +1,10 @@
-package com.github.aesteve.restest.specs;
+package com.github.aesteve.restest.specs
 
 import com.github.aesteve.restest.TestUtils
 
 spec "Test JSON API", {
 
+	reporters = [[to:"console"]]
 	host = TestUtils.HOST
 	port = TestUtils.PORT
 	contentType = "application/json"
@@ -12,11 +13,14 @@ spec "Test JSON API", {
 
 	def name = "World"
 
+
 	get "/json/hello?name=${name}", [hello:name]
 
-	post "/json/echo", {
-		def payload = ["hello":name]
-		body = payload
-		expect payload
+	get "/json/echoHeaders", {
+		headers << ["X-Custom":"Some-Value"]
+		expect {
+			headers = ["X-Custom":"Some-Value"]
+			body = [path:"withHeaders"]
+		}
 	}
 }

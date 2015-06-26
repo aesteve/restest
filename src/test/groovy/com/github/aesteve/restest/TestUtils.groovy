@@ -7,18 +7,23 @@ import io.vertx.groovy.ext.unit.Async
 import io.vertx.groovy.ext.unit.TestContext
 import io.vertx.groovy.ext.web.Router
 import io.vertx.groovy.ext.web.RoutingContext
+import static io.vertx.core.http.HttpHeaders.*
 
 class TestUtils {
 
 	public final static HOST = "localhost"
 	public final static PORT = 9000
+	public final static JSON = "application/json"
 
 
 	static Closure createTestRouter = { Vertx vertx, TestContext context ->
-		println "Create router"
 		Async async = context.async()
 		Router router = Router.router(vertx)
-		router.route("/json/*").consumes("application/json").produces("/application/json")
+		router.route("/json/*").consumes(JSON).produces(JSON)
+		router.route("/json/*").handler { RoutingContext ctx ->
+			ctx.response().putHeader(CONTENT_TYPE.toString(), JSON)
+			ctx.next()
+		}
 		router.get("/json/hello").handler { RoutingContext ctx ->
 			String name = ctx.request().getParam("name")
 			if (!name) {
@@ -45,7 +50,6 @@ class TestUtils {
 	}
 
 	static Closure closeAll = { Vertx vertx, TestContext context ->
-		println "Close all"
 		if (vertx) {
 			Async async = context.async()
 			vertx.close({

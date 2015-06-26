@@ -10,14 +10,14 @@ import com.github.aesteve.restest.dsl.SpecDSL
 @TypeChecked
 class SpecBuilder {
 
-	Vertx vertx
+	Vertx vertx = Vertx.vertx()
 
-	TestSuite buildSpec(File spec) {
+	SpecDSL buildSpec(File spec) {
 		def binding = new Binding()
 		def shell = new GroovyShell(binding)
 		SpecDSL specDSL = new SpecDSL(vertx)
 		shell.setVariable("spec", specDSL.&make)
 		shell.evaluate(spec)
-		specDSL.testSuite
+		specDSL
 	}
 }
