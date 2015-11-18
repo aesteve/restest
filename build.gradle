@@ -8,16 +8,18 @@ repositories {
     mavenCentral()
 }
 
+def vertxVersion = "3.1.0"
+
 dependencies {
     // vertx
-    compile 'io.vertx:vertx-core:3.0.0'
-    compile 'io.vertx:vertx-unit:3.0.0'
-    compile 'io.vertx:vertx-lang-groovy:3.0.0'
+    compile "io.vertx:vertx-core:${vertxVersion}"
+    compile "io.vertx:vertx-unit:${vertxVersion}"
+    compile "io.vertx:vertx-lang-groovy:${vertxVersion}"
     
     // tests
-    testCompile 'io.vertx:vertx-web:3.0.0'
+    testCompile "io.vertx:vertx-web:${vertxVersion}"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
+    gradleVersion = '2.8'
 }
